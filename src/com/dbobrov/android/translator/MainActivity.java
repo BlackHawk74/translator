@@ -1,14 +1,12 @@
 package com.dbobrov.android.translator;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.*;
 
 import java.io.IOException;
@@ -22,57 +20,10 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     private TextView translation;
     private GridView imageGrid;
     private ImageAdapter adapter;
+    private ImageView largeImage;
     private static final ImageUrlParser imageParser = ImageUrlParserFactory.getImageUrlParser();
     private static final WordTranslator wordTranslator = WordTranslatorFactory.getWordTranslator();
 
-    private class ImageAdapter extends BaseAdapter {
-        private ArrayList<Bitmap> bitmaps;
-        private Context context;
-
-        public ImageAdapter(Context context, ArrayList<Bitmap> bitmaps) {
-            this.bitmaps = bitmaps;
-            this.context = context;
-        }
-
-        public ArrayList<Bitmap> getContainer() {
-            return bitmaps;
-        }
-
-        @Override
-        public int getCount() {
-            return bitmaps.size();
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return bitmaps.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return 0;
-        }
-
-        public void clear() {
-            bitmaps.clear();
-            notifyDataSetChanged();
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup viewGroup) {
-            ImageView v;
-            if (convertView == null) {
-                v = new ImageView(context);
-
-                v.setLayoutParams(new GridView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                v.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            } else {
-                v = (ImageView) convertView;
-            }
-            v.setImageBitmap(bitmaps.get(position));
-            return v;
-        }
-    }
 
     private class NetworkLayer extends AsyncTask<String, String, Boolean> {
 
@@ -136,12 +87,17 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         imageGrid.setOnItemClickListener(this);
         adapter = new ImageAdapter(this, new ArrayList<Bitmap>());
         imageGrid.setAdapter(adapter);
+        largeImage = (ImageView) findViewById(R.id.imgLarge);
+        largeImage.setOnClickListener(this);
+        largeImage.setVisibility(View.GONE);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnSubmit:
+                findViewById(R.id.tv1).setVisibility(View.VISIBLE);
+                findViewById(R.id.tv2).setVisibility(View.VISIBLE);
                 String text = word.getText().toString();
                 if (!text.matches("^[\\w\\s]+$")) {
                     Toast.makeText(this, R.string.enter_word, Toast.LENGTH_SHORT).show();
@@ -149,11 +105,21 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
                     adapter.clear();
                     new NetworkLayer().execute(text);
                 }
+                break;
+            case R.id.imgLarge:
+                view.setVisibility(View.GONE);
+                break;
         }
     }
 
     @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        // TODO implement
+    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+        switch (parent.getId()) {
+            case R.id.grdImages:
+                largeImage.setImageBitmap((Bitmap) imageGrid.getAdapter().getItem(position));
+                largeImage.setVisibility(View.VISIBLE);
+                break;
+
+        }
     }
 }

@@ -9,5 +9,7 @@
     <string name="enter_word">Введите английское слово</string>
     <string name="smth_wrong">Что-то пошло не так</string>
     <string name="error_translating">Ошибка при переводе слова</string>
+    <string name="translation">Перевод</string>
+    <string name="images_found">Найденные изображения</string>
 
 </resources>
