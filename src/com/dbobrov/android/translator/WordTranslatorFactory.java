@@ -8,4 +8,8 @@ package com.dbobrov.android.translator;
  * To change this template use File | Settings | File Templates.
  */
 public class WordTranslatorFactory {
+    public static WordTranslator getWordTranslator() {
+        return new MockWordTranslator();
+    }
+
 }
