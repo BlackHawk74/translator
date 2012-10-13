@@ -6,5 +6,8 @@
     <string name="title_activity_main">Translator</string>
     <string name="enter_english_word">Введите английское слово</string>
     <string name="translate">Перевести</string>
+    <string name="enter_word">Введите английское слово</string>
+    <string name="smth_wrong">Что-то пошло не так</string>
+    <string name="error_translating">Ошибка при переводе слова</string>
 
 </resources>
