@@ -7,5 +7,9 @@ package com.dbobrov.android.translator;
  * Time: 17:39
  * To change this template use File | Settings | File Templates.
  */
-public class MockImageUrlParser {
+public class MockImageUrlParser implements ImageUrlParser {
+    @Override
+    public String[] getImageUrls(String word) {
+        return null;
+    }
 }
