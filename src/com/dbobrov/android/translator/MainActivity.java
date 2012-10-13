@@ -1,12 +1,6 @@
 package com.dbobrov.android.translator;
 
 import android.app.Activity;
-<<<<<<< HEAD
-import android.os.Bundle;
-import android.view.View;
-import android.widget.*;
-
-=======
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -20,18 +14,14 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
->>>>>>> ui
+
 public class MainActivity extends Activity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private EditText word;
     private Button submit;
     private TextView translation;
     private GridView imageGrid;
-<<<<<<< HEAD
-    private static final ImageUrlParser imageParser = ImageUrlParserFactory.getImageUrlParser();
-    private static final WordTranslator wordTranslator = WordTranslatorFactory.getWordTranslator();
 
 
-=======
     private ImageAdapter adapter;
     private ImageView largeImage;
     private static final ImageUrlParser imageParser = ImageUrlParserFactory.getImageUrlParser();
@@ -87,7 +77,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
             }
         }
     }
->>>>>>> ui
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -99,23 +89,12 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         imageGrid = (GridView) findViewById(R.id.grdImages);
         submit.setOnClickListener(this);
         imageGrid.setOnItemClickListener(this);
-<<<<<<< HEAD
-    }
-
-    @Override
-    public void onClick(View view) {
-        // TODO implement
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        // TODO implement
-=======
         adapter = new ImageAdapter(this, new ArrayList<Bitmap>());
         imageGrid.setAdapter(adapter);
         largeImage = (ImageView) findViewById(R.id.imgLarge);
         largeImage.setOnClickListener(this);
         largeImage.setVisibility(View.GONE);
+
     }
 
     @Override
@@ -147,6 +126,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
                 break;
 
         }
->>>>>>> ui
+
     }
 }
