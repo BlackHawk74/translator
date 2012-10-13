@@ -31,6 +31,13 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     private class NetworkLayer extends AsyncTask<String, String, Boolean> {
 
         @Override
+        protected void onPreExecute() {
+            findViewById(R.id.progressText).setVisibility(View.VISIBLE);
+            findViewById(R.id.progressImages).setVisibility(View.VISIBLE);
+            submit.setEnabled(false);
+        }
+
+        @Override
         protected Boolean doInBackground(String... strings) {
             String translation = wordTranslator.GetTranslation(strings[0]);
             if (translation == null) {
@@ -54,7 +61,11 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
                     } catch (IOException e) {
                         Log.e("DOWNLOADING", "Can't download image");
                     }
-                    publishProgress("i");
+                    if (i == (imageUrls.length - 1)) {
+                        publishProgress("c");
+                    } else {
+                        publishProgress("i");
+                    }
                 }
             }
             return true;
@@ -64,17 +75,24 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         protected void onProgressUpdate(String... progress) {
             if (progress[0].charAt(0) == 't') {
                 translation.setText(progress[0].substring(1));
+                findViewById(R.id.progressText).setVisibility(View.GONE);
             } else {
                 adapter.notifyDataSetChanged();
+                if (progress[0].charAt(0) == 'c') {
+                    findViewById(R.id.progressImages).setVisibility(View.GONE);
+                }
             }
         }
 
 
         @Override
         protected void onPostExecute(Boolean result) {
+            findViewById(R.id.progressImages).setVisibility(View.GONE);
+            findViewById(R.id.progressText).setVisibility(View.GONE);
             if (!result) {
                 Toast.makeText(MainActivity.this, R.string.smth_wrong, Toast.LENGTH_SHORT).show();
             }
+            submit.setEnabled(true);
         }
     }
 
