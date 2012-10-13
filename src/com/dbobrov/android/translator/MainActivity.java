@@ -104,6 +104,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
                 findViewById(R.id.tv1).setVisibility(View.VISIBLE);
                 findViewById(R.id.tv2).setVisibility(View.VISIBLE);
                 String text = word.getText().toString();
+                text = text.trim();
                 if (!text.matches("^[\\w\\s]+$")) {
                     Toast.makeText(this, R.string.enter_word, Toast.LENGTH_SHORT).show();
                 } else {
