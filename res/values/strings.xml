@@ -11,5 +11,6 @@
     <string name="error_translating">Ошибка при переводе слова</string>
     <string name="translation">Перевод</string>
     <string name="images_found">Найденные изображения</string>
+    <string name="large_image">Увеличенная картинка</string>
 
 </resources>
