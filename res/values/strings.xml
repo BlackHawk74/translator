@@ -4,5 +4,12 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">Translator</string>
+    <string name="enter_english_word">Введите английское слово</string>
+    <string name="translate">Перевести</string>
+    <string name="enter_word">Введите английское слово</string>
+    <string name="smth_wrong">Что-то пошло не так</string>
+    <string name="error_translating">Ошибка при переводе слова</string>
+    <string name="translation">Перевод</string>
+    <string name="images_found">Найденные изображения</string>
 
 </resources>
