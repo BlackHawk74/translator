@@ -9,7 +9,8 @@ package com.dbobrov.android.translator;
  */
 public class WordTranslatorFactory {
     public static WordTranslator getWordTranslator() {
-        return new MockWordTranslator();
+       // return new MockWordTranslator();
+    	return new YandexWordTranslator();
     }
 
 }
