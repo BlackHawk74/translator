@@ -9,6 +9,8 @@ package com.dbobrov.android.translator;
  */
 public class ImageUrlParserFactory {
     public static ImageUrlParser getImageUrlParser() {
-        return new MockImageUrlParser();
+        //return new MockImageUrlParser();
+        return new GoogleImageUrlParser();
     }
+    
 }
