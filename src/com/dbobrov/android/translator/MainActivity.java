@@ -50,9 +50,12 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
                 translation = getString(R.string.error_translating);
             }
             publishProgress("t" + translation);
+            if (isCancelled()) {
+                return true;
+            }
             String[] imageUrls = imageParser.getImageUrls(strings[0]);
             ArrayList<Bitmap> bitmaps = adapter.getContainer();
-            if (imageUrls == null) {
+            if (imageUrls == null || imageUrls.length == 0) {
                 bitmaps.add(BitmapFactory.decodeResource(getResources(), R.drawable.no_photo));
                 publishProgress("i");
             } else {
@@ -63,7 +66,6 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
                         connection.connect();
                         Bitmap bitmap = BitmapFactory.decodeStream(connection.getInputStream());
                         bitmaps.add(bitmap);
-
                     } catch (IOException e) {
                         Log.e("DOWNLOADING", "Can't download image");
                     }
@@ -72,6 +74,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
                     } else {
                         publishProgress("i");
                     }
+                }
+                if (bitmaps.size() == 0) {
+                    return false;
                 }
             }
             return true;
@@ -125,13 +130,13 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnSubmit:
-                findViewById(R.id.tv1).setVisibility(View.VISIBLE);
-                findViewById(R.id.tv2).setVisibility(View.VISIBLE);
                 String text = word.getText().toString();
-                text = text.trim();
-                if (!text.matches("^[\\w\\s]+$")) {
+                text = text.trim().toLowerCase();
+                if (!text.matches("^[a-z -]+$")) {
                     Toast.makeText(this, R.string.enter_word, Toast.LENGTH_SHORT).show();
                 } else {
+                    findViewById(R.id.tv1).setVisibility(View.VISIBLE);
+                    findViewById(R.id.tv2).setVisibility(View.VISIBLE);
                     adapter.clear();
                     new NetworkLayer().execute(text);
                 }
